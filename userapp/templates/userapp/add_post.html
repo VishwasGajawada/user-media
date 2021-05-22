@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends 'userapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h3>New post by {{user.username}}</h3>
+        <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock body_block %}

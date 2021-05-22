@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% extends 'userapp/base.html' %}
+
+{% block css_block %}
+    <style>
+        .my-post{
+            width: auto;
+            background:white;
+            border-radius:5px;
+        }
+        .my-post a{
+            text-decoration:none;
+        }
+        .dp{
+            border-radius:50%;
+        }
+    </style>
+{% endblock css_block %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h3>Your Profile</h3>
+        <hr>
+        <h3>Username : {{user.username|title}}</h3>
+        <p>Email : 
+        {% if user.email %}
+            {{user.email}}
+        {% else %}
+            None
+        {% endif %}</p>
+        {% if profile.profile_pic  %}
+            <img class="dp" src="{{profile.profile_pic.url}}" alt="{{user.username}}'s picture" style="max-width: 100%;">
+        {% else %}
+            <img class="dp" src="" alt="{{user.username}}'s picture" style="max-width: 100%;">
+        {% endif %}
+        {% if user != post_author %}
+        
+        {% else %}
+        <hr>
+        <a href="{% url 'update_profile'  %}" class="btn btn-outline-info">Update Profile</a>
+        {% endif %}
+        
+    </div>
+
+    <div class="jumbotron">
+              
+        {% if user != post_author %}
+        <h4>{{post_author|title}}'s posts :</h4><hr>
+        {% else %}
+        <a class="btn btn-outline-primary" href="{% url 'add_post' %}">Add a new post</a>  
+        <hr>
+        <h4>Your posts :</h4><hr>
+        {% endif %}
+        
+        {% if posts|length > 0 %}
+            {% for post in posts %}
+                <button class="my-post btn btn-info">
+                    <a href="{% url 'post_detail' post.id %}" style="color:black">
+                    <div>
+                    <h5>{{post.title}}</h5>
+                    <p>{{post.created}}</p>
+                    </div>
+                    </a>
+                </button>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">No posts created</div>
+        {% endif %}
+    </div>
+    
+    
+    
+{% endblock body_block %}
