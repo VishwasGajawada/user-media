@@ -20,15 +20,15 @@
 {% block body_block %}
     <div class="jumbotron">
         {% if user != post_author %}
-            <h3>{{post_author|title}}'s Profile</h3>
+            <h3>{{post_author.username|title}}'s Profile</h3>
         {% else %}
             <h3>Your Profile</h3>
         {% endif %}
         <hr>
-        <h3>Username : {{user.username|title}}</h3>
+        <h3>Username : {{post_author.username|title}}</h3>
         <p>Email : 
-        {% if user.email %}
-            {{user.email}}
+        {% if post_author.email %}
+            {{post_author.email}}
         {% else %}
             None
         {% endif %}</p>
